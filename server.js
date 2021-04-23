@@ -5,7 +5,7 @@ const {v4:uuidv4} = require('uuid');
 //const mainDirectory = path.join(__dirname,'/public');
 
 const app = express();
-const PORT = 5600;
+const PORT = process.env.PORT || 3000;
 
 app.use(express.urlencoded({extended:true}));
 app.use(express.json());
