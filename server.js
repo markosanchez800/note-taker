@@ -1,8 +1,8 @@
+//dependencies
 const express = require('express');
 const path = require('path');
 const fs = require('fs')
 const {v4:uuidv4} = require('uuid');
-//const mainDirectory = path.join(__dirname,'/public');
 
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -13,6 +13,7 @@ app.use(express.json());
 
 app.use(express.static('public'));
 
+//paths for moving around the app
 app.get("/",function(req,res){
     res.sendFile(path.join(__dirname,"/public/index.html"));
 });
@@ -20,11 +21,12 @@ app.get("/",function(req,res){
 app.get("/notes",function(req,res){
     res.sendFile(path.join(__dirname,"/public/notes.html"));
 });
-//why is app not registering notes or db file?? figure out
+
 app.get("/api/notes",function(req,res){
     res.sendFile(path.join(__dirname,'/db/db.json'));
 });
 
+//reads the json file and pushes the new note to its contents, then writes that to the file as well as posting to screen
 app.post("/api/notes",function(req,res){
     var newNote = req.body;
     newNote.id = uuidv4();
